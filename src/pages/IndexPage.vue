@@ -56,6 +56,6 @@ const rating = ref(null)
 const text = ref(null)
 
 function redirect() {
-  window.location.href = "https://wp.pl"
+  window.location.href = process.env.VUE_REMOTE_URL
 }
 </script>
