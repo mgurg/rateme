@@ -46,6 +46,7 @@
           <q-btn color="red-14" @click="sendToDiscord('sss')">Test WEBHOOK 1</q-btn>
           <q-btn color="red-14" @click="webhookNotification">Test WEBHOOK 2</q-btn>
           <q-btn color="red-14" @click="sendDiscordNotification">Test WEBHOOK 3</q-btn>
+          <q-btn color="red-14" @click="sendMessage">Test WEBHOOK 4</q-btn>
 
         </div>
       </div>
@@ -141,5 +142,20 @@ const sendDiscordNotification = async () => {
     // Handle error, if needed
   }
 };
+
+function sendMessage() {
+  const request = new XMLHttpRequest();
+  request.open("POST", process.env.VUE_SENTRY_DSN);
+
+  request.setRequestHeader('Content-type', 'application/json');
+
+  const params = {
+    username: "My Webhook Name",
+    avatar_url: "",
+    content: "The message to send"
+  }
+
+  request.send(JSON.stringify(params));
+}
 
 </script>
