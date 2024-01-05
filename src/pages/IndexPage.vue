@@ -42,6 +42,11 @@
             <q-btn color="red-14">Wyślij</q-btn>
           </div>
 
+
+          <q-btn color="red-14" @click="sendToDiscord('sss')">Test WEBHOOK 1</q-btn>
+          <q-btn color="red-14" @click="webhookNotification">Test WEBHOOK 2</q-btn>
+          <q-btn color="red-14" @click="sendDiscordNotification">Test WEBHOOK 3</q-btn>
+
         </div>
       </div>
 
@@ -58,4 +63,83 @@ const text = ref(null)
 function redirect() {
   window.location.href = process.env.VUE_REMOTE_URL
 }
+
+function isValidDiscordWebhookUrl(discordWebhookUrl) {
+  return discordWebhookUrl ? discordWebhookUrl.startsWith('https://discord.com/api/webhooks/') : null;
+}
+
+function webhookNotification() {
+  console.log("submit")
+
+  discord_message(process.env.VUE_SENTRY_DSN, "aaaa")
+}
+
+function discord_message(webHookURL, message) {
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", webHookURL, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify({
+    'content': message,
+    'username': 'Frieren',
+  }));
+}
+
+const sendToDiscord = async (message) => {
+
+  const discordWebhookURL = process.env.VUE_SENTRY_DSN;
+
+  const data = {
+    content: message,
+  };
+
+  try {
+    const response = await fetch(discordWebhookURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      console.log("OK Discord");
+    } else {
+      console.error("NOK Discord");
+    }
+  } catch (error) {
+    console.error("Discord:", error);
+  }
+};
+
+const sendDiscordNotification = async () => {
+  const webhookUrl = process.env.VUE_SENTRY_DSN; // Replace this with your Discord webhook URL
+
+  const message = {
+    content: 'Your notification message here',
+    username: 'Your Bot Name', // Optional: Customize the bot username
+    // avatar_url: 'URL_TO_BOT_AVATAR', // Optional: Provide an avatar for the bot
+  };
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(message),
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log('Notification sent successfully:', responseData);
+      // Handle success, if needed
+    } else {
+      throw new Error('Failed to send notification');
+    }
+  } catch (error) {
+    console.error('Error sending notification:', error);
+    // Handle error, if needed
+  }
+};
+
 </script>

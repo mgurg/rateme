@@ -32,7 +32,7 @@ module.exports = configure(function (/* ctx */) {
     boot: [
       'i18n',
       'axios',
-      'sentry'
+      // 'sentry'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
