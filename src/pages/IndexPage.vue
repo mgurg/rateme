@@ -43,10 +43,9 @@
           </div>
 
 
-          <q-btn color="red-14" @click="sendToDiscord('sss')">Test WEBHOOK 1</q-btn>
-          <q-btn color="red-14" @click="webhookNotification">Test WEBHOOK 2</q-btn>
-          <q-btn color="red-14" @click="sendDiscordNotification">Test WEBHOOK 3</q-btn>
-          <q-btn color="red-14" @click="sendMessage">Test WEBHOOK 4</q-btn>
+          <q-btn color="red-14" @click="o()">Test WEBHOOK 1</q-btn>
+          <q-btn color="red-14" @click="wh()">Test WEBHOOK 2</q-btn>
+
 
         </div>
       </div>
@@ -57,6 +56,7 @@
 
 <script setup>
 import {ref} from "vue";
+import {discord} from "boot/axios";
 
 const rating = ref(null)
 const text = ref(null)
@@ -75,87 +75,54 @@ function webhookNotification() {
   discord_message(process.env.VUE_SENTRY_DSN, "aaaa")
 }
 
-function discord_message(webHookURL, message) {
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", webHookURL, true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.send(JSON.stringify({
-    'content': message,
-    'username': 'Frieren',
-  }));
-}
 
-const sendToDiscord = async (message) => {
+function wh(){
 
-  const discordWebhookURL = process.env.VUE_SENTRY_DSN;
+  let data = JSON.stringify({
+    "content": "Your message here"
+  });
 
-  const data = {
-    content: message,
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: process.env.VUE_WEBHOOK_DISCORD,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data : data
   };
 
-  try {
-    const response = await fetch(discordWebhookURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+  discord.request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
     });
+}
 
-    if (response.ok) {
-      console.log("OK Discord");
-    } else {
-      console.error("NOK Discord");
-    }
-  } catch (error) {
-    console.error("Discord:", error);
-  }
-};
 
-const sendDiscordNotification = async () => {
-  const webhookUrl = process.env.VUE_SENTRY_DSN; // Replace this with your Discord webhook URL
+function o(){
 
-  const message = {
-    content: 'Your notification message here',
-    username: 'Your Bot Name', // Optional: Customize the bot username
-    // avatar_url: 'URL_TO_BOT_AVATAR', // Optional: Provide an avatar for the bot
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    "content": "Your message here"
+  });
+
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
   };
 
-  try {
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(message),
-    });
-
-    if (response.ok) {
-      const responseData = await response.json();
-      console.log('Notification sent successfully:', responseData);
-      // Handle success, if needed
-    } else {
-      throw new Error('Failed to send notification');
-    }
-  } catch (error) {
-    console.error('Error sending notification:', error);
-    // Handle error, if needed
-  }
-};
-
-function sendMessage() {
-  const request = new XMLHttpRequest();
-  request.open("POST", process.env.VUE_SENTRY_DSN);
-
-  request.setRequestHeader('Content-type', 'application/json');
-
-  const params = {
-    username: "My Webhook Name",
-    avatar_url: "",
-    content: "The message to send"
-  }
-
-  request.send(JSON.stringify(params));
+  fetch(process.env.VUE_WEBHOOK_DISCORD, requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
 }
+
 
 </script>
