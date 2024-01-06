@@ -2,7 +2,7 @@
   <div class="col-12 col-md row justify-center q-gutter-sm q-py-sm">
     <div
       class="text-center full-width text-size-24 text-weight-bolder letter-spacing-450 text-brand-primary text-uppercase">
-      Jak się bawiłeś?
+      Jak Ci się podobała zabawa?
     </div>
     <q-card v-for="(entry, index) in components" :key="index"
             class="page-docs__card column justify-center items-center cursor-pointer"

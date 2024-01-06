@@ -5,7 +5,8 @@
 
       <div class="col-12 q-py-lg">
         <div v-if="rating && rating > 3">
-          <div class="row justify-center q-py-lg text-h5">Super ❤️</div>
+          <div class="row justify-center q-py-lg text-h5">Super ❤️ </div>
+          <div class="row justify-center q-py-lg q-px-md text-body1">Podziel się swoją opinią na Google Maps i pokaż innym, że warto do nas wpaść. To zajmie Ci tylko minutę!</div>
           <div class="row justify-center q-py-lg">
             <q-btn color="primary" outline @click="redirect">&nbsp; Podziel się opinią z innymi</q-btn>
           </div>
@@ -24,14 +25,34 @@
               size="3.5em"
             />
           </div>
-          <div class="row justify-center q-py-lg">😥 Co możemy zrobić lepiej️?</div>
+<!--          <div class="row justify-center q-py-lg">😥 Co możemy zrobić lepiej️?</div>-->
           <q-input
             v-model="text"
             class="full-width row"
             outlined
             type="textarea"
+            label="Podziel się swoimi doświadczeniami"
           />
-          <q-btn class="row justify-center q-my-lg" color="red-14" @click="webhookNotification()">Wyślij</q-btn>
+          <div class="row q-pt-lg">
+            <q-space/>
+            <q-btn
+              label="Anuluj"
+              class="q-mr-lg"
+              color="red-12"
+              flat
+              icon="cancel"
+              type="submit"
+            />
+
+            <q-btn
+              label="Wyślij"
+              class="q-mr-xs"
+              color="primary"
+              icon="done"
+              type="submit"
+              @click="webhookNotification()"
+            />
+          </div>
         </div>
 
 
