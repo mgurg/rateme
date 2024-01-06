@@ -11,14 +11,16 @@
           </div>
         </div>
 
-        <div v-if="rating && rating <4" >
+        <div v-if="rating && rating <4">
           <div class="row justify-center">
 
             <q-rating
               v-model="ratingModel"
+              :color-selected="ratingColors"
               class="row justify-center q-py-lg"
-              color="yellow-5"
-              icon="star"
+              color="blue-grey-9"
+              icon="star_border"
+              icon-selected="star"
               size="3.5em"
             />
           </div>
@@ -41,12 +43,12 @@
 
 <script setup>
 import {ref} from "vue";
-import axios from "axios";
 import {useDiscordWebhook} from "src/composables/useDiscordWebhook";
 import RatingGrid from "components/RatingGrid.vue";
 
 const rating = ref(null)
 const ratingModel = ref(0)
+const ratingColors = ref(['amber-8', 'amber-8', 'amber-8', 'amber-8', 'amber-8']);
 const text = ref(null)
 
 function redirect() {
@@ -68,10 +70,6 @@ async function webhookNotification() {
   redirectOutside()
 
 }
-
-
-
-
 
 
 </script>
