@@ -4,25 +4,28 @@
       <RatingGrid v-if="rating===null" @rating-set="parseRating"/>
 
       <div class="col-12 q-py-lg">
-        <div v-if="rating && rating > 2">
+        <div v-if="rating && rating > 3">
           <div class="row justify-center q-py-lg text-h5">Super ❤️</div>
           <div class="row justify-center q-py-lg">
             <q-btn color="primary" outline @click="redirect">&nbsp; Podziel się opinią z innymi</q-btn>
           </div>
         </div>
 
-        <div v-if="rating && rating <3" class="row justify-center">
-          <q-rating
-            v-model="ratingModel"
-            class="row justify-center q-py-lg"
-            color="yellow-5"
-            icon="star"
-            size="3.5em"
-          />
+        <div v-if="rating && rating <4" >
+          <div class="row justify-center">
+
+            <q-rating
+              v-model="ratingModel"
+              class="row justify-center q-py-lg"
+              color="yellow-5"
+              icon="star"
+              size="3.5em"
+            />
+          </div>
           <div class="row justify-center q-py-lg">😥 Co możemy zrobić lepiej️?</div>
           <q-input
             v-model="text"
-            class="full-width"
+            class="full-width row"
             outlined
             type="textarea"
           />
