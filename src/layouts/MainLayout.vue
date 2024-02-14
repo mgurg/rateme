@@ -28,7 +28,5 @@
 </template>
 
 <script setup>
-import { defineComponent, ref } from 'vue'
-
 console.log(process.env.VUE_REMOTE_URL)
 </script>
