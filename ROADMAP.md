@@ -7,3 +7,4 @@ This file provides an overview of the direction this project is heading. The roa
     - support multiple languages
     - auto locale switcher based on webbrowser lang
  - [ ] store config in JSON fila as fake DB
+ - [ ] save pause time in local storage after submit review to avoid submit one again in short period of time
