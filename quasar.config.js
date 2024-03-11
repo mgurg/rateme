@@ -12,18 +12,8 @@
 import { configure } from 'quasar/wrappers'
 import { fileURLToPath } from 'node:url';
 
-export default configure((/* ctx */) => {
+export default configure((ctx) => {
   return {
-    eslint: {
-      // fix: true,
-      // include: [],
-      // exclude: [],
-      // cache: false,
-      // rawOptions: {},
-      warnings: true,
-      errors: true
-    },
-
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,
 
@@ -58,7 +48,7 @@ export default configure((/* ctx */) => {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
       target: {
-        browser: [ 'es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1' ],
+        browser: [ 'es2022', 'firefox115', 'chrome115', 'safari14' ],
         node: 'node20'
       },
 
@@ -90,9 +80,16 @@ export default configure((/* ctx */) => {
           // you need to set `runtimeOnly: false`
           // runtimeOnly: false,
 
+          ssr: ctx.modeName === 'ssr',
+
           // you need to set i18n resource including paths !
           include: [ fileURLToPath(new URL('./src/i18n', import.meta.url)) ],
-        }]
+        }],
+        ['vite-plugin-checker', {
+          eslint: {
+            lintCommand: 'eslint "./**/*.{js,mjs,cjs,vue}"'
+          }
+        }, { server: false }]
       ]
     },
 
