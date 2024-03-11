@@ -71,12 +71,7 @@ export default configure((/* ctx */) => {
 
       // publicPath: '/',
       // analyze: true,
-       env: {
-         envFolder: './', // absolute or relative path to root project folder
-         envFiles: [ '.env'
-           // Path strings to your custom files --- absolute or relative path to root project folder
-         ]
-       },
+      // env: {},
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
