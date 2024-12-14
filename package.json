@@ -4,6 +4,7 @@
   "description": "A Quasar Project",
   "productName": "RateMe App",
   "author": "mgur <mgur@pop-os.localdomain>",
+  "type": "module",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
@@ -26,17 +27,17 @@
     "vue-router": "^4.2.0"
   },
   "devDependencies": {
-    "eslint": "^8.10.0",
+    "eslint": "^8.11.0",
     "eslint-plugin-vue": "^9.0.0",
-    "eslint-config-prettier": "^8.1.0",
-    "prettier": "^2.5.1",
-    "@intlify/vite-plugin-vue-i18n": "^3.3.1",
-    "@quasar/app-vite": "^1.7.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.3",
+    "@intlify/unplugin-vue-i18n": "^2.0.0",
+    "@quasar/app-vite": "^2.0.0-beta.14",
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.14"
   },
   "engines": {
-    "node": "^18 || ^16 || ^14.19",
+    "node": "^24 || ^22 || ^20 || ^18",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   }
